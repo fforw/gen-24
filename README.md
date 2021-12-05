@@ -1,3 +1,3 @@
-# Simple Starter
+# gen-24
 
-Simple JS build starter for simple, client-only demos.
+stripy random shapes
