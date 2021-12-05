@@ -74,11 +74,9 @@ domready(
             }
 
 
-            const createRandomGradient = (flag) => {
+            const createRandomGradient = (flag, corner) => {
                 const { width, height } = config;
                 const size = Math.max(width, height);
-
-                const corner = 0| Math.random() * 4;
 
                 let x,y;
 
@@ -89,16 +87,32 @@ domready(
                         y = 0;
                         break;
                     case 1:
-                        x = width;
+                        x = width/2;
                         y = 0;
                         break;
                     case 2:
-                        x = 0;
-                        y = height;
+                        x = width;
+                        y = 0;
                         break;
                     case 3:
                         x = width;
+                        y = height/2;
+                        break;
+                    case 4:
+                        x = width;
                         y = height;
+                        break;
+                    case 5:
+                        x = width/2;
+                        y = height;
+                        break;
+                    case 6:
+                        x = 0;
+                        y = height;
+                        break;
+                    case 7:
+                        x = 0;
+                        y = height/2;
                         break;
                 }
 
@@ -106,11 +120,11 @@ domready(
                 const gradient = ctx.createRadialGradient(x, x, size, x, y, 0)
                 gradient.addColorStop(
                     0,
-                    randomColor(flag).toRGBA(0.9)
+                    randomColor(flag).toRGBA(0.85)
                 )
                 gradient.addColorStop(
                     1,
-                    randomColor(-flag).toRGBA(0.9)
+                    randomColor(-flag).toRGBA(0.85)
                 )
 
                 return gradient
@@ -190,8 +204,10 @@ domready(
                 }
             };
 
+            const corner = 0|Math.random() * 8
+
             let size = Math.max(width, height);
-            ctx.fillStyle = createRandomGradient(-1);
+            ctx.fillStyle = createRandomGradient(-1, corner);
             ctx.fillRect(0, 0, width, height);
 
             const lineWidth = 9;
@@ -202,7 +218,7 @@ domready(
 
             setClip();
 
-            ctx.fillStyle = createRandomGradient(1);
+            ctx.fillStyle = createRandomGradient(1, (corner + 4) & 7);
             ctx.fillRect(0, 0, width, height);
 
 
